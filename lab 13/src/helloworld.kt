@@ -1,13 +1,15 @@
-fun whichLanguage (a:String, b:String) =
-    when{
-        a=="Prolog" -> println("$b,ну Вы и подлиза")
-        a=="Kotlin" -> println("$b, ну Вы и подлиза")
-        else -> println("$b, мне он не нравится >:| ")
+fun sumDig(x: Int): Int {
+    var s = 0
+    var temp: Int = x
+    while (temp != 0) {
+        s += temp % 10
+        temp /= 10
     }
+    return (s)
+}
 fun main() {
-    println("Как Вас зовут?")
-    val name = readLine()
-    println("Здравствуйте, $name! Какой Ваш любимый язык программирования?")
-    val lang = readLine()
-    whichLanguage(lang.toString(), name.toString())
+    println("Введите число: ")
+    val x = readLine()!!.toInt()
+    print("Сумма цифр числа = ")
+    println(sumDig(x))
 }
