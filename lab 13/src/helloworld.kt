@@ -1,3 +1,5 @@
 fun main() {
-    print("Hello world")
+    println("Как вас зовут?")
+    val  name = readLine()
+    println("Здравствуйте, $name!")
 }
