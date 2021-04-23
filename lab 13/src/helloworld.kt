@@ -1,15 +1,10 @@
-fun simple(x:Int):Boolean{
-    for(i in 2..x/2){
-        if(x%i==0){
-            return false}
-    }
-    return true
-}
-fun sumSimpleDiv(x:Int):Int{
+fun odd(x:Int):Int{
     var sum=0
-    for(i in 2..x/2){
-        if(x%i==0 && simple(i)){
-            sum+=i}
+    var temp: Int = x
+    while (temp != 0) {
+        if (temp % 10 > 3 && (temp % 10) % 2 !=0)
+            sum += 1
+        temp /= 10
     }
     return sum
 }
@@ -17,5 +12,5 @@ fun sumSimpleDiv(x:Int):Int{
 fun main() {
     println("Введите число: ")
     val x = readLine()!!.toInt()
-    print("Сума простых делителей числа = ${sumSimpleDiv(x)}")
+    print("Количество нечетных цифр числа, больших 3 = ${odd(x)}")
 }
