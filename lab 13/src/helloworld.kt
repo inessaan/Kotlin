@@ -1,36 +1,21 @@
-fun min(x: Int): Int{
-    var min = 9
-    var temp: Int = x
-    while (temp != 0) {
-        if (min > temp % 10)
-            min = temp % 10
-        temp /= 10
+fun simple(x:Int):Boolean{
+    for(i in 2..x/2){
+        if(x%i==0){
+            return false}
     }
-    return (min)
+    return true
+}
+fun sumSimpleDiv(x:Int):Int{
+    var sum=0
+    for(i in 2..x/2){
+        if(x%i==0 && simple(i)){
+            sum+=i}
+    }
+    return sum
 }
 
-fun max(x: Int): Int{
-    var max = 0
-    var temp: Int = x
-    while (temp != 0) {
-        if (max < temp % 10)
-            max = temp % 10
-        temp /= 10
-    }
-    return (max)
-}
-
-fun multiply(x: Int): Int{
-    var p = 1
-    var temp: Int = x
-    while (temp != 0) {
-        p*= temp % 10
-        temp /= 10
-    }
-    return (p)
-}
 fun main() {
     println("Введите число: ")
     val x = readLine()!!.toInt()
-    print("Максимальная цифра числа = ${max(x)} \nМинимальная цифра числа = ${min(x)} \n Произведение цифр числа = ${multiply(x)}")
+    print("Сума простых делителей числа = ${sumSimpleDiv(x)}")
 }
