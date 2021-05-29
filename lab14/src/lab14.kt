@@ -1,53 +1,26 @@
-fun sumDown(n : Int) : Int = sumDown(n, 0)
-tailrec fun sumDown(n : Int, sum : Int): Int = if(n == 0) sum else sumDown(n/10,sum+n%10)
+tailrec fun down(n: Int, acum : Int, f : (Int, Int) -> Int) : Int =
+    if ( n == 0) acum else
+        down(n / 10, f(n % 10, acum), f)
 
-fun simple (x: Int) : Boolean = if (x == 1) false
-        else { if (x == 2) true
-        else simple (x, x/2)}
+fun sum(n: Int) : Int = down(n, 0, {a,b -> a + b})
+fun mult(n: Int) : Int = down(n, 1, {a,b -> a * b})
+fun max(n: Int) : Int = down(n, 0, {a,b -> if (a > b) a else b})
+fun min(n: Int) : Int = down(n, 9, {a,b -> if (a < b) a else b})
 
-tailrec fun simple(x:Int, i:Int): Boolean = if (i == 1) true
-    else { if(x % i == 0)
-        false
-    else  simple(x, i - 1)
-}
+fun op (op : Int,x : Int ) = when (op){
+    1 -> sum(x)
+    2 -> mult(x)
+    3 -> max(x)
+    4 -> min(x)
 
-fun sumSimpleDiv(x: Int) : Int = sumSimpleDiv(x, x/2, 0)
-tailrec fun sumSimpleDiv(x:Int, i: Int, accum: Int) :
-        Int = if (i == 1) accum + 1
-else {
-    if (x%i == 0 && simple(i))
-        sumSimpleDiv(x, i - 1, accum + i)
-    else sumSimpleDiv(x, i - 1, accum)
-}
-
-fun odd(x:Int): Int = odd (x, 0)
-tailrec fun odd(x: Int, count: Int) :
-        Int = if (x == 0) count else
-{
-    if ((x % 10) % 2 != 0 && (x % 10) > 3)
-        odd (x/10, count + 1)
-    else odd(x/10, count)
-}
-
-fun multDiv(x:Int): Int = multDiv(x,1,1)
-
-fun f(x:Int, div:Int): Boolean = x % div == 0
-
-tailrec fun multDiv(x:Int, div:Int, pr:Int): Int = if (x == div) pr else{
-    when {
-        sumDown(div) < sumDown(x) && f(x, div) ->
-        {
-            println("Делитель числа: $div" )
-            multDiv(x,div + 1,pr * div)
-        }
-        else -> multDiv(x,div + 1, pr)
-    }
+    else -> throw IllegalArgumentException("Ошибка")
 }
 
 fun main() {
-    println("Введите число: ")
-    val x = readLine()!!.toInt()
-    println("Сума простых делителей числа = ${sumSimpleDiv(x)}")
-    println("Количество нечетных цифр числа, больших 3 = ${odd(x)}")
-    println("Произведение делителей числа, сумма цифр которых меньше, чем сумма цифр исходного числа = ${multDiv(x)}")
+    println("Введите операцию и затем введите число: ")
+    println("1 - Сумма цифр")
+    println("2 - Произведение цифр")
+    println("3 - Максимальная цифра")
+    println("4 - Минимальная цифра")
+    println(op(readLine()!!.toInt(), readLine()!!.toInt()))
 }
