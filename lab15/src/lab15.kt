@@ -87,6 +87,14 @@ tailrec  fun countAfterMax(array: Array<Int>, count: Int, accum: Int, max: Int, 
         else  countAfterMax(array, count+1, accum + 1, max, size)
 }
 
+fun iMin (array : Array<Int>) : Int = iMin(array, 1, 0, array[0], array.size)+1 //задание 4.2
+
+tailrec  fun iMin(array: Array<Int>, count: Int, accum: Int, min: Int, size: Int) : Int =
+    if (size == count) accum
+        else { if (array[count] < min) iMin(array, count+1, count, array[count], size)
+        else  iMin(array, count+1, accum , min, size)
+}
+
 fun main()
 {
 
@@ -109,9 +117,10 @@ fun main()
     println("Функция произведения ${arrayOp(array.iterator(), {a,b -> a*b}, 1)}")
 
     println(countAfterMax(array)) //задание 4.1
+
+    println(iMin(array)) //задание 4.2
     */
 
     var array = choice() //задание 3 выбор ввода
-    println(countAfterMax(array))
-
+    println(iMin(array))
 }
