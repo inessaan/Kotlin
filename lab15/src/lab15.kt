@@ -78,6 +78,15 @@ fun choice() : Array<Int> {
         return inputArray()
 }
 
+
+fun countAfterMax (array : Array<Int>) : Int = countAfterMax(array, 1,0, array[0], array.size)//задание 4.1
+
+tailrec  fun countAfterMax(array: Array<Int>, count: Int, accum: Int, max: Int, size: Int) : Int =
+    if (size == count) accum
+        else { if (array[count] > max) countAfterMax(array, count+1, 0, array[count], size)
+        else  countAfterMax(array, count+1, accum + 1, max, size)
+}
+
 fun main()
 {
 
@@ -98,13 +107,11 @@ fun main()
     println("Функция макс ${arrayOp(array.iterator(), {a,b -> if (a>b) a else b}, array[0])}")
     println("Функция суммы ${arrayOp(array.iterator(), {a,b -> a+b}, 0)}")
     println("Функция произведения ${arrayOp(array.iterator(), {a,b -> a*b}, 1)}")
+
+    println(countAfterMax(array)) //задание 4.1
     */
 
     var array = choice() //задание 3 выбор ввода
-
-    println(sum(array)) // задание 1
-    println(mult(array))
-    println(min(array))
-    println(max(array))
+    println(countAfterMax(array))
 
 }
