@@ -95,6 +95,14 @@ tailrec  fun iMin(array: Array<Int>, count: Int, accum: Int, min: Int, size: Int
         else  iMin(array, count+1, accum , min, size)
 }
 
+fun intervalMax (array: Array<Int>, a: Int, b: Int) : Int =   //задание 4.25
+    intervalMax(array, a, b, array[a])
+
+tailrec fun intervalMax (array: Array<Int>, a: Int, b: Int, max : Int) : Int =
+    if (a == b) max
+        else {if (array[a + 1] > max) intervalMax(array, a + 1, b, array[a + 1])
+        else intervalMax(array, a + 1, b, max)}
+
 fun main()
 {
 
@@ -119,8 +127,10 @@ fun main()
     println(countAfterMax(array)) //задание 4.1
 
     println(iMin(array)) //задание 4.2
+
+    println(intervalMax(array, 0, 5)) //задание 4.25
     */
 
     var array = choice() //задание 3 выбор ввода
-    println(iMin(array))
+    println(intervalMax(array, 0, 5)) //задание 4.25
 }
