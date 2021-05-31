@@ -116,6 +116,16 @@ else {
 }
 }
 
+fun lMin (array: Array<Int>) : Int =  lMin (array, 0, 1) //задание 4.37
+tailrec fun lMin (array: Array<Int>,  count: Int, countSize: Int) : Int =
+    if (countSize == array.size) count
+    else {
+        if (array[countSize - 1] > array[countSize]) {
+            println("Ind: ${countSize}")
+            lMin(array, count + 1, countSize + 1) }
+        else lMin(array, count, countSize + 1)
+    }
+
 fun main()
 {
 
@@ -144,8 +154,11 @@ fun main()
     println(intervalMax(array, 0, 5)) //задание 4.25
 
     betweenMax(array) //задание 4.28
+
+    println("Индексы и количество чисел, меньших своего левого соседа: ${lMin(array)}") //задание 4.37
     */
 
     var array = choice() //задание 3 выбор ввода
-    betweenMax(array) //задание 4.28
+
+    println("Индексы и количество чисел, меньших своего левого соседа: ${lMin(array)}") //задание 4.37
 }
