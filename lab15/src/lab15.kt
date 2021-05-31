@@ -126,6 +126,15 @@ tailrec fun lMin (array: Array<Int>,  count: Int, countSize: Int) : Int =
         else lMin(array, count, countSize + 1)
     }
 
+fun countMin (array: Array<Int>) : Int =               //задание 4.43
+    countMin (array, 0, 1, minMax(array, 0, 0, array.size, {a, b -> a < b}))
+tailrec fun countMin (array: Array<Int>,  count: Int, countSize: Int, min : Int) : Int =
+    if (countSize == array.size) count
+    else {
+        if (array[countSize] == min) {
+            countMin(array, count + 1, countSize + 1, min) }
+        else countMin(array, count, countSize + 1, min)
+    }
 fun main()
 {
 
@@ -160,5 +169,5 @@ fun main()
 
     var array = choice() //задание 3 выбор ввода
 
-    println("Индексы и количество чисел, меньших своего левого соседа: ${lMin(array)}") //задание 4.37
+    println(countMin(array)) //задание 4.43
 }
