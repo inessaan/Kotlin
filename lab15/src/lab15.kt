@@ -87,21 +87,34 @@ tailrec  fun countAfterMax(array: Array<Int>, count: Int, accum: Int, max: Int, 
         else  countAfterMax(array, count+1, accum + 1, max, size)
 }
 
-fun iMin (array : Array<Int>) : Int = iMin(array, 1, 0, array[0], array.size)+1 //задание 4.2
+fun iMin (array : Array<Int>) : Int = index(array, 0, 0, array.size, {a, b -> a < b}) //задание 4.2
 
-tailrec  fun iMin(array: Array<Int>, count: Int, accum: Int, min: Int, size: Int) : Int =
-    if (size == count) accum
-        else { if (array[count] < min) iMin(array, count+1, count, array[count], size)
-        else  iMin(array, count+1, accum , min, size)
+tailrec fun index (array: Array<Int>, count: Int, accum: Int, size: Int, f : (Int, Int)-> Boolean) : Int = //индекс элемента макс или мин
+    if (size - 1 == count) accum
+    else { if (f(array[accum],array[count+1])) index(array, count+1, accum, size, f)
+    else  index(array, count+1, count + 1 , size, f)
+    }
+
+
+fun intervalMax (array: Array<Int>, a: Int, b: Int) : Int = intervalMax(array, a, b, array[a]) //задание 4.25
+
+tailrec fun intervalMax (array: Array<Int>, a: Int, b: Int, max : Int) : Int = if (a==b) max
+else {if (array[a+1]> max) intervalMax(array, a+1, b, array[a+1]) else intervalMax(array, a+1, b, max)}
+
+fun indMaxFirst (array : Array<Int>) : Int = index(array, 0, 0, array.size, {a, b -> a > b})  //задание 4.28
+fun indMaxSecond (array : Array<Int>) : Int = index(array, 0, 0, array.size, {a, b -> a >= b})
+fun betweenMax (array: Array<Int>) = betweenMax (array,indMaxSecond(array), indMaxFirst(array),0, array.size)
+tailrec fun betweenMax (array: Array<Int>, a: Int, b: Int, count: Int, size: Int)  { if (count == array.size - 1) println("")
+else {
+    if(count > a && count < b) {
+        print("${array[count]} ")
+        betweenMax(array, a, b, count + 1, size)
+    }
+    else{
+        betweenMax(array, a, b, count + 1, size)
+    }
 }
-
-fun intervalMax (array: Array<Int>, a: Int, b: Int) : Int =   //задание 4.25
-    intervalMax(array, a, b, array[a])
-
-tailrec fun intervalMax (array: Array<Int>, a: Int, b: Int, max : Int) : Int =
-    if (a == b) max
-        else {if (array[a + 1] > max) intervalMax(array, a + 1, b, array[a + 1])
-        else intervalMax(array, a + 1, b, max)}
+}
 
 fun main()
 {
@@ -129,8 +142,10 @@ fun main()
     println(iMin(array)) //задание 4.2
 
     println(intervalMax(array, 0, 5)) //задание 4.25
+
+    betweenMax(array) //задание 4.28
     */
 
     var array = choice() //задание 3 выбор ввода
-    println(intervalMax(array, 0, 5)) //задание 4.25
+    betweenMax(array) //задание 4.28
 }
