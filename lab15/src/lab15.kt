@@ -135,6 +135,66 @@ tailrec fun countMin (array: Array<Int>,  count: Int, countSize: Int, min : Int)
             countMin(array, count + 1, countSize + 1, min) }
         else countMin(array, count, countSize + 1, min)
     }
+
+fun listInput(): List<Int> {                     //задание 5
+    print("Bведите размер списка: ")
+    val size = readLine()!!.toInt()
+    return listInput( size)
+}
+
+fun listInput(size: Int) : MutableList<Int> { val list: MutableList<Int> = mutableListOf<Int>()   // ввод списка с клавиатуры
+    return listInput(list, 0, size)
+}
+
+tailrec fun listInput(list : MutableList<Int>, counter : Int, size : Int) : MutableList<Int> =
+
+    if (counter == size) list else {
+        val x = readLine()!!.toInt()
+        list.add(x)
+        listInput(list, counter + 1, size)
+    }
+
+fun fileList(input : Map<Int, Int>) : MutableList<Int> {
+    var list: MutableList<Int> = mutableListOf<Int>()
+    list.remove(0)
+    return fileList(list, 0, input.size, input)
+}
+
+tailrec fun fileList(list : MutableList<Int>, counter : Int, size : Int, input : Map<Int, Int>) : MutableList<Int> =
+    if (counter == size) list else {
+        list.add(input[counter]!!)
+        fileList(list, counter + 1, size, input)
+    }
+
+
+fun inputFileList(fileName:String) : MutableList<Int> {   //чтение из файла, возвращает мэп индексированный
+    val input = File(fileName).readLines()
+        .withIndex() //Возвращает ленивую итерацию, которая обертывает каждый элемент исходного массива в IndexedValue, содержащий индекс этого элемента и сам элемент
+        .map { indexedValue -> indexedValue.index to indexedValue.value.toInt() }  // Возвращает список, содержащий результаты применения данной функции преобразования к каждому элементу исходной коллекции
+        .toMap() //Возвращает новую карту, содержащую все пары ключ-значение из заданной коллекции пар
+    return fileList(input)
+}
+
+
+fun choiceList() : List<Int> {
+    println(
+        "Выберите способ ввода\n" +
+                "1. Клавиатура\n" +
+                "2. Файл"
+    )
+    val type = readLine()!!.toInt()
+    if (type == 2) {
+        println("Введите имя файла: ")
+        val name = readLine().toString()
+        return inputFileList("${name}.txt")
+    }
+    else
+        return listInput()
+}
+
+tailrec fun listOp(list: Iterator<Int>, f: (Int, Int) -> Int, accum: Int): Int =
+    if (list.iterator().hasNext() == false) accum else
+        listOp(list, f, f(list.iterator().next(),accum))
 fun main()
 {
 
@@ -165,9 +225,14 @@ fun main()
     betweenMax(array) //задание 4.28
 
     println("Индексы и количество чисел, меньших своего левого соседа: ${lMin(array)}") //задание 4.37
-    */
-
-    var array = choice() //задание 3 выбор ввода
 
     println(countMin(array)) //задание 4.43
+    */
+    var list = choiceList()
+
+    println("Максимальный элемент ${listOp(list.iterator(), {a,b -> if (a>b) a else b}, list[0])}")
+    println("Минимальный элемент ${listOp(list.iterator(), {a,b -> if (a<b) a else b}, list[0])}")
+    println("Сумма элементов ${listOp(list.iterator(), {a,b -> a+b}, 0)}")
+    println("Произведение элементов ${listOp(list.iterator(), {a,b -> a*b}, 1)}")
+
 }
