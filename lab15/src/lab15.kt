@@ -244,9 +244,9 @@ fun main()
     */
     var list = choiceList()
 
-    println("Максимальный элемент ${listOp(list.iterator(), {a,b -> if (a>b) a else b}, list[0])}")
-    println("Минимальный элемент ${listOp(list.iterator(), {a,b -> if (a<b) a else b}, list[0])}")
-    println("Сумма элементов ${listOp(list.iterator(), {a,b -> a+b}, 0)}")
-    println("Произведение элементов ${listOp(list.iterator(), {a,b -> a*b}, 1)}")
+    println("Максимальный элемент ${list.max()}") //задание 6
+    println("Минимальный элемент ${list.min()}")
+    println("Сумма элементов ${list.sum()}")
+    println("Произведение элементов ${list.fold(1, { total, next -> total * next })}")
 
 }
