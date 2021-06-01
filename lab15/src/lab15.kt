@@ -172,7 +172,7 @@ tailrec fun fileList(list : MutableList<Int>, counter : Int, size : Int, input :
     }
 
 
-fun inputFileList(fileName:String) : MutableList<Int> {   //чтение из файла, возвращает мэп индексированный
+fun inputFileList(fileName:String) : MutableList<Int> {   //чтение из файла, возвращает мэп индексированный, задание 7
     val input = File(fileName).readLines()
         .withIndex() //Возвращает ленивую итерацию, которая обертывает каждый элемент исходного массива в IndexedValue, содержащий индекс этого элемента и сам элемент
         .map { indexedValue -> indexedValue.index to indexedValue.value.toInt() }  // Возвращает список, содержащий результаты применения данной функции преобразования к каждому элементу исходной коллекции
@@ -200,6 +200,18 @@ fun choiceList() : List<Int> {
 tailrec fun listOp(list: Iterator<Int>, f: (Int, Int) -> Int, accum: Int): Int =
     if (list.iterator().hasNext() == false) accum else
         listOp(list, f, f(list.iterator().next(),accum))
+
+
+fun countAfterMaxList (list : List<Int>) : Int = countAfterMaxList(list, 1,0, list[0], list.size) // задание 8.1
+
+tailrec  fun countAfterMaxList(list: List<Int>, count: Int, accum: Int, max: Int, size: Int) : Int =
+    if (size == count) accum
+    else { if (list[count] >= max) {//println (list[count])
+        countAfterMaxList(list, count+1, 0, list[count], size)}
+    else  countAfterMaxList(list, count+1, accum + 1, max, size)
+}
+
+
 fun main()
 {
 
@@ -222,17 +234,11 @@ fun main()
     println("Функция произведения ${arrayOp(array.iterator(), {a,b -> a*b}, 1)}")
 
     println(countAfterMax(array)) //задание 4.1
-
     println(iMin(array)) //задание 4.2
-
     println(localMin(array, 5)) //адание 4.15
-
     println(intervalMax(array, 0, 5)) //задание 4.25
-
     betweenMax(array) //задание 4.28
-
     println("Индексы и количество чисел, меньших своего левого соседа: ${lMin(array)}") //задание 4.37
-
     println(countMin(array)) //задание 4.43
 
     var list = choiceList()          //задание 5
@@ -241,12 +247,15 @@ fun main()
     println("Минимальный элемент ${listOp(list.iterator(), {a,b -> if (a<b) a else b}, list[0])}")
     println("Сумма элементов ${listOp(list.iterator(), {a,b -> a+b}, 0)}")
     println("Произведение элементов ${listOp(list.iterator(), {a,b -> a*b}, 1)}")
-    */
-    var list = choiceList()
 
     println("Максимальный элемент ${list.max()}") //задание 6
     println("Минимальный элемент ${list.min()}")
     println("Сумма элементов ${list.sum()}")
     println("Произведение элементов ${list.fold(1, { total, next -> total * next })}")
 
+    println(countAfterMaxList(list)) //задание 8.1
+    */
+    var list = choiceList()
+
+    println(countAfterMaxList(list))
 }
