@@ -116,6 +116,11 @@ else {
 }
 }
 
+fun localMin (array: Array<Int>, ind: Int) : Boolean = if (ind != 0 && ind != array.size - 1) //задание 4.15
+    array[ind-1] > array[ind] && array[ind] < array[ind+1]
+else {if (ind == 0) array[ind] < array[ind+1] else array[ind-1] > array[ind]}
+
+
 fun lMin (array: Array<Int>) : Int =  lMin (array, 0, 1) //задание 4.37
 tailrec fun lMin (array: Array<Int>,  count: Int, countSize: Int) : Int =
     if (countSize == array.size) count
@@ -220,6 +225,8 @@ fun main()
 
     println(iMin(array)) //задание 4.2
 
+    println(localMin(array, 5)) //адание 4.15
+
     println(intervalMax(array, 0, 5)) //задание 4.25
 
     betweenMax(array) //задание 4.28
@@ -227,6 +234,13 @@ fun main()
     println("Индексы и количество чисел, меньших своего левого соседа: ${lMin(array)}") //задание 4.37
 
     println(countMin(array)) //задание 4.43
+
+    var list = choiceList()          //задание 5
+
+    println("Максимальный элемент ${listOp(list.iterator(), {a,b -> if (a>b) a else b}, list[0])}")
+    println("Минимальный элемент ${listOp(list.iterator(), {a,b -> if (a<b) a else b}, list[0])}")
+    println("Сумма элементов ${listOp(list.iterator(), {a,b -> a+b}, 0)}")
+    println("Произведение элементов ${listOp(list.iterator(), {a,b -> a*b}, 1)}")
     */
     var list = choiceList()
 
