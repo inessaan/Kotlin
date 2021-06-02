@@ -211,6 +211,13 @@ tailrec  fun countAfterMaxList(list: List<Int>, count: Int, accum: Int, max: Int
     else  countAfterMaxList(list, count+1, accum + 1, max, size)
 }
 
+fun iMinList (list : List<Int>) : Int = indexList(list, 0, 0, list.size, {a, b -> a < b}) //задание 8.2
+// находит индекс элемента подходящего под условие (максимальный/минимальный)
+tailrec fun indexList (list : List<Int>, count: Int, accum: Int, size: Int, f : (Int, Int)-> Boolean) : Int =
+    if (size - 1 == count) accum
+    else { if (f(list[accum],list[count+1])) indexList(list, count+1, accum, size, f)
+    else  indexList(list, count+1, count + 1 , size, f)
+    }
 
 fun main()
 {
@@ -254,8 +261,9 @@ fun main()
     println("Произведение элементов ${list.fold(1, { total, next -> total * next })}")
 
     println(countAfterMaxList(list)) //задание 8.1
+    println(iMinList(list))//задание 8.2
     */
     var list = choiceList()
 
-    println(countAfterMaxList(list))
+    println(iMinList(list))//задание 8.2
 }
