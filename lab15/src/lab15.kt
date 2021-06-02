@@ -219,6 +219,11 @@ tailrec fun indexList (list : List<Int>, count: Int, accum: Int, size: Int, f : 
     else  indexList(list, count+1, count + 1 , size, f)
     }
 
+fun localMinList (list : List<Int>, ind: Int) : Boolean = if (ind != 0 && ind != list.size - 1) //задание 8.15
+    list[ind-1] > list[ind] && list[ind] < list[ind+1]
+else {if (ind == 0) list[ind] < list[ind+1] else list[ind-1] > list[ind]}
+
+
 fun main()
 {
 
@@ -265,5 +270,5 @@ fun main()
     */
     var list = choiceList()
 
-    println(iMinList(list))//задание 8.2
+    println(localMinList(list, 7))
 }
