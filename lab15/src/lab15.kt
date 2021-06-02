@@ -223,7 +223,10 @@ fun localMinList (list : List<Int>, ind: Int) : Boolean = if (ind != 0 && ind !=
     list[ind-1] > list[ind] && list[ind] < list[ind+1]
 else {if (ind == 0) list[ind] < list[ind+1] else list[ind-1] > list[ind]}
 
+fun intervalMaxList (list : List<Int>, a: Int, b: Int) : Int = intervalMaxList(list, a, b, list[a]) //задание 8.25
 
+tailrec fun intervalMaxList (list : List<Int>, a: Int, b: Int, max : Int) : Int = if (a==b) max
+else {if (list[a+1]> max) intervalMaxList(list, a+1, b, list[a+1]) else intervalMaxList(list, a+1, b, max)}
 fun main()
 {
 
@@ -267,8 +270,9 @@ fun main()
 
     println(countAfterMaxList(list)) //задание 8.1
     println(iMinList(list))//задание 8.2
+        println(localMinList(list, 7)) //задание 8.15
     */
     var list = choiceList()
 
-    println(localMinList(list, 7))
+    println(intervalMaxList(list, 0,9)) //задание 8.25
 }
