@@ -257,6 +257,8 @@ tailrec fun lMinList (list: List<Int>,  count: Int, countSize: Int) : Int =
         else lMinList(list, count, countSize + 1)
     }
 
+fun makeListProst(list: List<Double>): List<Double> = List<Double>(10000000, {0.1}) //задание 9
+
 fun main()
 {
 
