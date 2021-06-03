@@ -77,7 +77,7 @@ fun sumDig(x: Int): Int {
 }
 
 
-fun largestProduct(mtx:Array<Array<Int>>): Int //задание
+fun largestProduct(mtx:Array<Array<Int>>): Int //задание 10.11
 {
     var max = 0
     var a = 0
@@ -123,13 +123,18 @@ fun largestProduct(mtx:Array<Array<Int>>): Int //задание
     println("$a, $b, $c, $d")
     return max
 }
+
+fun sumCoins(): Int{                //задание 10.31
+    val coins = arrayOf(1, 2, 5, 10, 20, 50, 100, 200)
+    var variants: Array<Int> = Array(201) { 0 }
+    variants[0] = 1       //0 можем получить 1 способом
+    for (i in 0..7) {
+        for (j in coins[i]..200)
+            variants[j] += variants[j - coins[i]]//
+    }
+    return variants[200]
+}
+
 fun main() {
-    var matrix = Array(20,{Array(20,{0})})
-    var a: Int
-    for (i in 0..19)
-        for (j in 0..19)
-        { a = (0..100).random()
-            matrix[i][j] = a
-        }
-    println(largestProduct(matrix))
+    println(sumCoins())
 }
