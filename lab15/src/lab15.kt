@@ -227,6 +227,25 @@ fun intervalMaxList (list : List<Int>, a: Int, b: Int) : Int = intervalMaxList(l
 
 tailrec fun intervalMaxList (list : List<Int>, a: Int, b: Int, max : Int) : Int = if (a==b) max
 else {if (list[a+1]> max) intervalMaxList(list, a+1, b, list[a+1]) else intervalMaxList(list, a+1, b, max)}
+
+fun indMaxFirstList (list : List<Int>) : Int =                                          //задание 8.28
+    indexList(list, 0, 0, list.size, {a, b -> a > b})
+fun indMaxSecondList (list : List<Int>) : Int =
+    indexList(list, 0, 0, list.size, {a, b -> a >= b})
+fun betweenMaxList (list : List<Int>) = betweenMaxList (list,indMaxSecondList(list), indMaxFirstList(list),0, list.size)
+tailrec fun betweenMaxList (list : List<Int>, a: Int, b: Int, count: Int, size: Int)
+    { if (count == list.size - 1) println("")
+    else {
+    if(count > a && count < b) {
+        print("${list[count]} ")
+        betweenMaxList(list, a, b, count + 1, size)
+    }
+    else{
+        betweenMaxList(list, a, b, count + 1, size)
+    }
+    }
+}
+
 fun main()
 {
 
@@ -270,9 +289,11 @@ fun main()
 
     println(countAfterMaxList(list)) //задание 8.1
     println(iMinList(list))//задание 8.2
-        println(localMinList(list, 7)) //задание 8.15
+    println(localMinList(list, 7)) //задание 8.15
+    println(intervalMaxList(list, 0,9)) //задание 8.25
+    println(betweenMaxList(list)) //задание 8.28
     */
     var list = choiceList()
 
-    println(intervalMaxList(list, 0,9)) //задание 8.25
+    println(betweenMaxList(list)) //задание 8.28
 }
