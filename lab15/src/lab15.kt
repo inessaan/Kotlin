@@ -304,7 +304,7 @@ fun main()
     println(intervalMaxList(list, 0,9)) //задание 8.25
     println(betweenMaxList(list)) //задание 8.28
     println(lMinList(list)) //задание 8.37
-    
+
     */
     var list = choiceList()
 

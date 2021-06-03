@@ -76,40 +76,60 @@ fun sumDig(x: Int): Int {
     return (s)
 }
 
-fun main() {
-var n: Boolean = false
-while (!n) {
-    println(
-        "Выберите команду: \n" +
-                "1.Найти сумму цифр числа \n" +
-                "2.Найти минимальную цифру \n" +
-                "3.Найти максимальную цифру \n" +
-                "4.Найти произведение цифр числа \n" +
-                "5.Найти сумму простых делителей числа. \n" +
-                "6.Найти количество нечетных цифр числа, больших 3 \n" +
-                "7.Найти прозведение таких делителей числа, сумма цифр которых меньше, чем сумма цифр исходного числа\n" +
-                "8.Выйти. \n"
-    )
-    val input = Scanner(System.`in`)
-    var command = input.nextInt()
-    if (command in 1..7) {
-        println("Введите число:")
-        val x = input.nextInt()
-        when (command) {
-            1 -> println("Сумма цифр: ${sumDig(x)}")
-            2 -> println("Минимальная цифра: ${min(x)}")
-            3 -> println("Максимальная цифра: ${max(x)}")
-            4 -> println("Произведение цифр: ${multiply(x)}")
-            5 -> println("Сумма простых делителей числа: ${sumSimpleDiv(x)}")
-            6 -> println("Количество нечетных цифр числа, больших 3: ${odd(x)}")
-            7 ->  println("Произведение делителей числа, сумма цифр которых меньше, чем сумма цифр исходного числа: ${multDiv(x)}")
-        }
-        println("Нажмите, чтобы продолжить..")
-        var m = readLine()
-    }
-    else {
-        print("Вы вышли из программы.")
-        return
-    }
+
+fun largestProduct(mtx:Array<Array<Int>>): Int //задание
+{
+    var max = 0
+    var a = 0
+    var b = 0
+    var c = 0
+    var d = 0
+    for (i in 0..19)
+        for (j in 0..16)
+            if(mtx[i][j] * mtx[i][j+1] * mtx[i][j+2] * mtx [i][j+3] > max) {
+                a = mtx[i][j]
+                b = mtx[i][j + 1]
+                c = mtx[i][j + 2]
+                d = mtx[i][j + 3]
+                max = mtx[i][j] * mtx[i][j + 1] * mtx[i][j + 2] * mtx[i][j + 3]
+            }
+    for (i in 0..16)
+        for (j in 0..19)
+            if(mtx[i][j] * mtx[i+1][j] * mtx[i+2][j] * mtx [i+3][j] > max) {
+                a = mtx[i][j]
+                b = mtx[i + 1][j]
+                c = mtx[i + 2][j]
+                d = mtx[i + 3][j]
+                max = mtx[i][j] * mtx[i + 1][j] * mtx[i + 2][j] * mtx[i + 3][j]
+            }
+    for (i in 0..16)
+        for (j in 0..16)
+            if(mtx[i][j] * mtx[i+1][j+1] * mtx[i+2][j+2] * mtx[i+3][j+3] > max)
+            {   a = mtx[i][j]
+                b = mtx[i + 1][j + 1]
+                c = mtx[i + 2][j + 2]
+                d = mtx[i + 3][j + 3]
+                max = mtx[i][j] * mtx[i+1][j+1] * mtx[i+2][j+2] * mtx[i+3][j+3]
+            }
+    for (i in 3..19)
+        for (j in 0..16)
+            if (mtx[i][j] * mtx[i-1][j+1] * mtx[i-2][j+2] * mtx[i-3][j+3] > max) {
+                a = mtx[i][j]
+                b = mtx[i - 1][j + 1]
+                c = mtx[i - 2][j + 2]
+                d = mtx[i - 3][j + 3]
+                max = mtx[i][j] * mtx[i - 1][j + 1] * mtx[i - 2][j + 2] * mtx[i - 3][j + 3]
+            }
+    println("$a, $b, $c, $d")
+    return max
 }
+fun main() {
+    var matrix = Array(20,{Array(20,{0})})
+    var a: Int
+    for (i in 0..19)
+        for (j in 0..19)
+        { a = (0..100).random()
+            matrix[i][j] = a
+        }
+    println(largestProduct(matrix))
 }
